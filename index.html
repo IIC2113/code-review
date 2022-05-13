@@ -38,9 +38,10 @@
     }
     </style>
     <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
-  <body>
+  <body class="w-screen">
     <h1>Veamos algunos sitios de alumnes 🥳</h1>
 
     <small>Recuerda que este sitio puede demorar algunos minutos en actualizarse...</small>
@@ -49,21 +50,29 @@
       <li><a href="https://github.com/IIC2113/code-review">Repo en GitHub 💻</a></li>
     </ul>
 
+    <div class="grid grid-cols-5 gap-4 w-full ">
+       <div class="border rounded-md w-36 p-2 h-36" id="template">
+        <!-- Copiar y pergar este div para rellenar con tu información -->
+       </div> 
+       <div class="border rounded-md w-36 p-2 h-36" id="igbasly">
+        Hooola! Pasa a ver mi página en el siguiente link 👇
+       </div> 
+    </div>
+
     <script type="text/javascript">
-      fetch('./equipo.txt').then(function (data) {
+      fetch('./people.txt').then(function (data) {
         return data.text()
       }).then(function (data) {
         const logins = data.split('\n')
         logins.forEach(function (login) {
           if(!login) return
-
+          const wrapper = document.getElementById(login);
           const a = document.createElement('a')
-          a.href = 'equipo/' + login
-          const image = new Image(50, 50)
-          image.src = 'https://github.com/' + login + '.png?size=100'
-          a.appendChild(image)
-          document.body.appendChild(a)
-
+          a.href = 'people/' + login
+          a.className = 'rounded-sm bg-gray-400 hover:bg-gray-600 text-white px-2'
+          a.innerHTML = 'Ver Página'
+          wrapper.appendChild(document.createElement('br'))
+          wrapper.appendChild(a)
           image.onerror = function () {
             a.remove()
           }
